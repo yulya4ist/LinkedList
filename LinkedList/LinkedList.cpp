@@ -2,7 +2,6 @@
 #include<iostream>
 
 
-
 LinkedList::Iterator LinkedList::Begin() const
 {
 	return LinkedList::Iterator(this->head);
