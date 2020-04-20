@@ -19,6 +19,11 @@ LinkedList::LinkedList()
 	this->length = 0;
 }
 
+LinkedList::LinkedList(const LinkedList& other)
+{
+	this->Move(other);
+}
+
 void LinkedList::Move(const LinkedList& other)
 {
 	*this = other;
@@ -85,6 +90,9 @@ size_t LinkedList::GetLength()
 
 LinkedList& LinkedList::operator=(const LinkedList& other)
 {
+	if (this == &other)
+		return *this;
+
 	this->Delete();
 
 	for (auto it = other.Begin(); it != other.End(); it++)

@@ -20,6 +20,9 @@ public:
 		{ 
 			this->current = current; 
 		}
+		Iterator(const Iterator& other) : Iterator(other.current) {}
+
+
 		Iterator& operator++ (int)
 		{ 
 			if (this->current == nullptr)
@@ -47,7 +50,11 @@ public:
 		{
 			return *this+=n;
 		}
-		double operator*()
+		Iterator& operator=(const Iterator& other)
+		{
+			this->current = other.current;
+		}
+		double& operator*()
 		{
 			if (this->current == nullptr)
 			{
@@ -58,14 +65,14 @@ public:
 		}
 		bool operator==(Iterator other)
 		{
-			if (other.current == this->current) return true;
-			return false;
+			return (other.current == this->current);
 		}
+
 		bool operator!=(Iterator other)
 		{
-			if (other.current != this->current) return true;
-			return false;
+			return !(*this==other);
 		}
+
 		void Delete()
 		{
 			if (this->current == nullptr)
@@ -83,10 +90,12 @@ public:
 	LinkedList::Iterator End() const;
 
 	LinkedList();
-	
+	LinkedList(const LinkedList& other);
+
 	void Move(const LinkedList& other);
 	void Append(double value);
 	void Prepend(double value);
+
 	void Delete();
 	void Print();
 	size_t GetLength();
