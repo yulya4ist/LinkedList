@@ -1,5 +1,6 @@
 #include "LinkedList.h"
 #include<iostream>
+#include<vector>
 
 
 LinkedList::Iterator LinkedList::Begin() const
@@ -21,10 +22,26 @@ LinkedList::LinkedList()
 
 LinkedList::LinkedList(const LinkedList& other)
 {
-	this->Move(other);
+	for (auto it = other.Begin(); it != other.End(); it++)
+	{
+		this->Append(*it);
+	}
 }
 
-void LinkedList::Move(const LinkedList& other)
+LinkedList::LinkedList(LinkedList&& other)
+{
+	this->head = other.head;
+	this->tail = other.tail;
+	this->length = other.length;
+
+	other.head = nullptr;
+	other.tail = nullptr;
+	other.length = 0;
+}
+
+
+
+void LinkedList::Copy(const LinkedList& other)
 {
 	*this = other;
 }
@@ -63,6 +80,11 @@ void LinkedList::Prepend(double value)
 
 }
 
+void LinkedList::Move(LinkedList&& other)
+{
+	*this = other;
+}
+
 void LinkedList::Delete()
 {
 	for (auto it = this->Begin(); it != this->End(); )
@@ -99,6 +121,23 @@ LinkedList& LinkedList::operator=(const LinkedList& other)
 	{
 		this->Append(*it);
 	}
+	return *this;
+}
+
+LinkedList& LinkedList::operator=(LinkedList&& other)
+{
+	if (this == &other)
+		return *this;
+	this->Delete();
+
+	this->head = other.head;
+	this->tail = other.tail;
+	this->length = other.length;
+
+	other.head = nullptr;
+	other.tail = nullptr;
+	other.length = 0;
+
 	return *this;
 }
 

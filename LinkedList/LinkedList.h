@@ -54,6 +54,7 @@ public:
 		{
 			this->current = other.current;
 		}
+		
 		double& operator*()
 		{
 			if (this->current == nullptr)
@@ -91,15 +92,19 @@ public:
 
 	LinkedList();
 	LinkedList(const LinkedList& other);
+	LinkedList(LinkedList&& other);
 
-	void Move(const LinkedList& other);
+	void Copy(const LinkedList& other);
 	void Append(double value);
 	void Prepend(double value);
+	void Move(LinkedList&& other);
 
 	void Delete();
 	void Print();
 	size_t GetLength();
 	LinkedList& operator=(const LinkedList& other);
+
+	LinkedList& operator=( LinkedList&& other);
 
 	~LinkedList();
 };
